@@ -1,5 +1,5 @@
 # SimpleHTTPServer
-The will allow you to quickley start a http/https webserver
+The will allow you to quickly start a http/https webserver
 # Usage
 Start simple https webserver
 ```
