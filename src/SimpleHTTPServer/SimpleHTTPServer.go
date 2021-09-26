@@ -124,7 +124,7 @@ body {
       <div class="d-flex flex-column justify-content-center align-items-center">
         <h1 class="fw-light text-white m-0">Simple HTTP/HTTPS Webserver</h1>
         <div class="btn-group my-5">
-          <a href="https://albievan.com/SimpleHTTPServer.tar.gz" class="btn btn-outline-light" aria-current="page"><i class="fas fa-file-download me-2"></i> SOURCE CODE</a>
+          <a href="https://github.com/albievan/freetools" class="btn btn-outline-light" aria-current="page"><i class="fas fa-file-download me-2"></i> SOURCE CODE</a>
           <a href="https://albievan.com/SimpleHTTPServer.MacOS.tar.gz" class="btn btn-outline-light" aria-current="page"><i class="fas fa-file-download me-2"></i> MacOS Binary</a>
         </div>
         <a href="https://albievan.com/" class="text-decoration-none">
