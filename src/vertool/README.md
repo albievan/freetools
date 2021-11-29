@@ -13,11 +13,15 @@ var (
 	//Copyright : Build with -ldflags
 	Copyright string = "Copyright Albie van der Merwe © 2020"
 	//AppName : Name of application
-	AppName string = "Version Tool"
-	//Build date
-	BuildDate string = "Today"
-	//Build Host
+	AppName string = "Application"
+	//Build Date
+	BuildDate string = "2021-09-09"
+	//Name of the host the build was done
 	BuildHost string = "localhost"
+	//Service name
+	ServiceName = "MyService"
+	//Serving port
+	PortNo = 8080
 )
 
 func main() {
