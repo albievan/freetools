@@ -38,16 +38,7 @@ vertool -file ./app.json -func create
 ```
 * Now to build the application 
 ```
-
-vertool -file ./app.json -func inc -section build
-vertool -file ./app.json -func inc -section minor
-export APP_VERSION=`vertool -file ./app.json -func load -section version`
-export APP_COPYRIGHT=`vertool -file ./app.json -func load -section copyright`
-export APP_BUILD_DATE=`date`
-export APP_BUILD_HOST=`hostname`
-export APP_NAME="app"
-
-go build -ldflags "-X 'main.Version=${APP_VERSION}' -X 'main.Copyright=${APP_COPYRIGHT}' -X 'main.AppName=${APP_NAME}' -X 'main.BuildDate=${APP_BUILD_DATE}' -X 'main.BuildHost=${APP_BUILD_HOST}'" -o $APP_NAME app.go
+go-build -a "Version Tool" -s vertool -o vertool
 ```
 * Now you can run the app and it will output the new variable values
 ```
