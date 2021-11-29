@@ -12,14 +12,22 @@ import (
 
 var (
 	//Version : go build/run -ldflags "-X main.Version=123"
-	Version string = "" //time.Now().Format("20060102.150405")
+	Version string = "alpha"
 	//Copyright : Build with -ldflags
 	Copyright string = "Copyright Albie van der Merwe © 2020"
 	//AppName : Name of application
-	AppName string = "Version Tool"
+	AppName string = "Vertool"
+	//Build Date
+	BuildDate string = "2021-09-09"
+	//Name of the host the build was done
+	BuildHost string = "localhost"
+	//Service name
+	ServiceName = "Export"
+	//Serving port
+	PortNo = 8080
 
 //To build an application do the following
-//go build -ldflags "-X main.Version=$APP_VERSION -X main.Copyright=$APP_COPYRIGHT"	-o appname app.go
+//go build -ldflags "-X 'main.Version=${APP_VERSION}' -X 'main.Copyright=${APP_COPYRIGHT}'"  -o appname app.go
 )
 
 //VersionInfo : information about the build

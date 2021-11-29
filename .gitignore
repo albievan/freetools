@@ -20,3 +20,7 @@ pkg/sumdb/*
 src/github.com/*
 src/golang.org/*
 
+src/vertool/vertool.alpine
+src/vertool/vertool.macos
+src/vertool/vertool.centos
+bin/gopls
