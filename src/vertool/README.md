@@ -21,7 +21,7 @@ var (
 	//Service name
 	ServiceName = "MyService"
 	//Serving port
-	PortNo = 8080
+	PortNo = "8080"
 )
 
 func main() {
