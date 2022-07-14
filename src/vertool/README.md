@@ -38,7 +38,7 @@ vertool -file ./app.json -func create
 ```
 * Now to build the application 
 ```
-go-build -a "Version Tool" -s vertool -o vertool
+go-build -a "Version Tool" -s vertool -o vertool -p 8080
 ```
 * Now you can run the app and it will output the new variable values
 ```
@@ -51,4 +51,5 @@ Copyright:       Copyright Albie van der Merwe © 2020
 AppName:         app
 BuildDate:       Thu 23 Sep 2021 23:34:36 BST
 BuildHost:       MacBook-Pro.local
+Service Port:    8080
 ```
