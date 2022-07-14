@@ -1,9 +1,14 @@
 #!/bin/bash
 set -e
 
-while getopts "s:a:o:" flag
+export servicePort=8080
+
+while getopts "s:a:o:p:" flag
 do
     case "${flag}" in
+        p)
+            servicePort=${OPTARG}
+            ;;
         s) 
             sourcefile=${OPTARG}
             versionfile=${OPTARG}
@@ -29,6 +34,7 @@ echo "Version File: "$versionfile
 echo "Source File: "$sourcefile 
 echo "Executable: "$exefile
 echo "Service Name: "$servicename
+echo "Service Port: "$servicePort
 
 [ ! -f "$versionfile.json" ] && vertool -func create -file $versionfile.json
 
@@ -40,19 +46,21 @@ export APP_NAME=$appname
 export APP_BUILD_DATE=`date`
 export APP_BUILD_HOST=`hostname`
 export APP_SERVICE_NAME=$servicename
+export APP_SERVICE_PORT=$servicePort
 
 echo "Build for MacOS"
-env GOOS=darwin GOARCH=amd64 go build -ldflags "-X 'main.BuildDate=${APP_BUILD_DATE}' -X 'main.BuildHost=${APP_BUILD_HOST}' -X 'main.Version=${APP_VERSION}' -X 'main.Copyright=${APP_COPYRIGHT}' -X 'main.AppName=${APP_NAME}' -X 'main.ServiceName=${APP_SERVICE_NAME}'"  -o $exefile.macos $sourcefile.go
+env GOOS=darwin GOARCH=amd64 go build -ldflags "-X 'main.PortNo=${APP_SERVICE_PORT}' -X 'main.BuildDate=${APP_BUILD_DATE}' -X 'main.BuildHost=${APP_BUILD_HOST}' -X 'main.Version=${APP_VERSION}' -X 'main.Copyright=${APP_COPYRIGHT}' -X 'main.AppName=${APP_NAME}' -X 'main.ServiceName=${APP_SERVICE_NAME}'"  -o $exefile.macos $sourcefile.go
 echo "Build for CentOS"
-env GOOS=linux GOARCH=amd64 go build -ldflags "-X 'main.BuildDate=${APP_BUILD_DATE}' -X 'main.BuildHost=${APP_BUILD_HOST}' -X 'main.Version=${APP_VERSION}' -X 'main.Copyright=${APP_COPYRIGHT}' -X 'main.AppName=${APP_NAME}' -X 'main.ServiceName=${APP_SERVICE_NAME}'"  -o $exefile.centos $sourcefile.go
+env GOOS=linux GOARCH=amd64 go build -ldflags "-X 'main.PortNo=${APP_SERVICE_PORT}' -X 'main.BuildDate=${APP_BUILD_DATE}' -X 'main.BuildHost=${APP_BUILD_HOST}' -X 'main.Version=${APP_VERSION}' -X 'main.Copyright=${APP_COPYRIGHT}' -X 'main.AppName=${APP_NAME}' -X 'main.ServiceName=${APP_SERVICE_NAME}'"  -o $exefile.centos $sourcefile.go
 echo "Build for Alpine"
-env GOOS=linux GOARCH=386 go build -ldflags "-X 'main.BuildDate=${APP_BUILD_DATE}' -X 'main.BuildHost=${APP_BUILD_HOST}' -X 'main.Version=${APP_VERSION}' -X 'main.Copyright=${APP_COPYRIGHT}' -X 'main.AppName=${APP_NAME}' -X 'main.ServiceName=${APP_SERVICE_NAME}'"  -o $exefile.alpine $sourcefile.go
+env GOOS=linux GOARCH=386 go build -ldflags "-X 'main.PortNo=${APP_SERVICE_PORT}' -X 'main.BuildDate=${APP_BUILD_DATE}' -X 'main.BuildHost=${APP_BUILD_HOST}' -X 'main.Version=${APP_VERSION}' -X 'main.Copyright=${APP_COPYRIGHT}' -X 'main.AppName=${APP_NAME}' -X 'main.ServiceName=${APP_SERVICE_NAME}'"  -o $exefile.alpine $sourcefile.go
 echo "Build for Windows"
-env GOOS=windows GOARCH=amd64 go build -ldflags "-X 'main.BuildDate=${APP_BUILD_DATE}' -X 'main.BuildHost=${APP_BUILD_HOST}' -X 'main.Version=${APP_VERSION}' -X 'main.Copyright=${APP_COPYRIGHT}' -X 'main.AppName=${APP_NAME}' -X 'main.ServiceName=${APP_SERVICE_NAME}'"  -o $exefile.exe $sourcefile.go
+env GOOS=windows GOARCH=amd64 go build -ldflags "-X 'main.PortNo=${APP_SERVICE_PORT}' -X 'main.BuildDate=${APP_BUILD_DATE}' -X 'main.BuildHost=${APP_BUILD_HOST}' -X 'main.Version=${APP_VERSION}' -X 'main.Copyright=${APP_COPYRIGHT}' -X 'main.AppName=${APP_NAME}' -X 'main.ServiceName=${APP_SERVICE_NAME}'"  -o $exefile.exe $sourcefile.go
 
 echo ""
 echo "APP_NAME="$APP_NAME
 echo "APP_COPYRIGHT="$APP_COPYRIGHT
 echo "APP_VERSION="$APP_VERSION
+echo "APP_SERVICE_PORT="$APP_VERSION
 echo "Completed $appname compilation. $exefile ready to run...service $servicename"
 echo ""
