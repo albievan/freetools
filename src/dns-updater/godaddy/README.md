@@ -27,7 +27,7 @@ docker build -t dns-updater:latest .
 ```
 
 # JSON
-Create a file called domains.json with the below structute in the sam folder as you main.go and Dockerfile. The most important fields are
+To proceed with the setup, create a file named domains.json using the following structure, and place it in the same folder as your main.go and Dockerfile. Pay close attention to these crucial fields:
 * domain: the domain needs to exist and owned by the api key and secret
 * name: this will be the name of the record
 * type: this is the type of record to add/update e.g. A, CNAME etc.
