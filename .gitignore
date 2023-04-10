@@ -24,3 +24,7 @@ src/vertool/vertool.alpine
 src/vertool/vertool.macos
 src/vertool/vertool.centos
 bin/gopls
+src/dns-updater/godaddy/ddns.info
+.DS_Store
+src/dns-updater/godaddy/.env
+src/dns-updater/godaddy/domains.json
