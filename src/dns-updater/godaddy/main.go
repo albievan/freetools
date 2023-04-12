@@ -41,13 +41,15 @@ func (r *DnsRecord) ToString() (string, error) {
 }
 
 func main() {
+	startTime := time.Now()
+
 	var updateInterval time.Duration
 	var recordsFile string
 
-	flag.DurationVar(&updateInterval, "interval", time.Minute*5, "Update interval (e.g., 5m)")
-	flag.StringVar(&recordsFile, "file", "domains.json", "File with all the DNS records defined(e.g., dnsrecords.json)")
-	flag.StringVar(&apiKey, "apiKey", "", "Godaddy api key e.g. -apiKey xyz")
-	flag.StringVar(&apiSecret, "apiSecret", "", "Godaddy api secret e.g apiSecret abc")
+	flag.DurationVar(&updateInterval, "interval", time.Minute*5, "Update interval (e.g., -interval 5m)")
+	flag.StringVar(&recordsFile, "file", "domains.json", "File with all the DNS records defined(e.g., -file dnsrecords.json)")
+	flag.StringVar(&apiKey, "apikey", "", "Godaddy api key (e.g. -apikey xyz)")
+	flag.StringVar(&apiSecret, "apisecret", "", "Godaddy api secret (e.g -apisecret abc)")
 	flag.Parse()
 
 	if apiKey == "" {
@@ -62,33 +64,33 @@ func main() {
 	}
 
 	for {
-		startTime := time.Now()
+		ip, err := getPublicIP()
+		if err != nil {
+			log.Fatalf("Error getting public IP: %v", err)
+		} else {
+			log.Printf("Dynamic IP: %s", ip)
+		}
+
 		records, err := readRecordsFromFile(recordsFile)
 		if err != nil {
 			log.Fatalf("Error reading records from file: %v", err)
 		}
 
-		ip, err := getPublicIP()
-		if err != nil {
-			log.Printf("Error getting public IP: %v", err)
-		} else {
-			log.Printf("Current public IP: %s", ip)
+		log.Printf("records: %v", records)
+		for _, r := range records {
+			if r.Data == "" {
+				r.Data = ip
+			}
+			log.Printf("Domain: %s, %s", r.Domain, r.Data)
 
-			log.Printf("records: %v", records)
-			for _, r := range records {
-				if r.Data == "" {
-					r.Data = ip
-				}
-				log.Printf("Domain: %s, %s", r.Domain, r.Data)
-
-				err := updateDNSRecord(r)
-				if err != nil {
-					log.Printf("Error updating DNS record: %v", err)
-				} else {
-					log.Printf("DNS record updated successfully")
-				}
+			err := updateDNSRecord(r)
+			if err != nil {
+				log.Printf("Error updating DNS record: %v", err)
+			} else {
+				log.Printf("DNS record updated successfully")
 			}
 		}
+
 		ts := time.Since(startTime)
 		duration := fmt.Stringer.String(ts)
 		durationSec := float64(ts / time.Second)
