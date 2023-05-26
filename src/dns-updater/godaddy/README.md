@@ -23,7 +23,7 @@ docker build -t dns-updater:latest .
 
 * After the build of the container image you're ready to create the dns-updater container. You can use a mapped volume if needed.
 ```
- docker run --restart unless-stopped --name ddns --hostname ddns -dit --env-file -v /mnt/docker_vol/ddns/conf:/conf ./.env dns-updater
+ docker run --restart unless-stopped --name ddns --hostname ddns -dit -v /mnt/docker_vol/ddns/conf:/conf --env-file ./.env dns-updater
 ```
  
 # JSON
