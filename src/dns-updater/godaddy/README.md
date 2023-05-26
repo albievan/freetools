@@ -31,7 +31,11 @@ To proceed with the setup, create a file named domains.json using the following 
 * domain: the domain needs to exist and owned by the api key and secret
 * name: this will be the name of the record
 * type: this is the type of record to add/update e.g. A, CNAME etc.
-* data: this is the value of the record e.g. you want to update a CNAME record 'home' for domain another_example.com to point to ip address 1.1.1.1 and the ttl must be 600 seconds
+* data: this is the value of the record
+  - if the data is blank then the dynamic IP address will be used
+  - e.g.
+    - if you want the dynamic IP address to be used then "data": ""
+    - if you want to update a CNAME record 'home' for domain another_example.com to point to ip address 1.1.1.1 and the ttl must be 600 seconds
 ```
 [
   {
