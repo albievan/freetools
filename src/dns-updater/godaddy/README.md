@@ -21,11 +21,11 @@ DDNS_FILE=<location and file name of the dns records>
 docker build -t dns-updater:latest .
 ```
 
-* After the build of the container image you're ready to create the dns-updater container
+* After the build of the container image you're ready to create the dns-updater container. You can use a mapped volume if needed.
 ```
- docker run --name ddns --hostname ddns -dit --env-file ./.env dns-updater
+ docker run --restart unless-stopped --name ddns --hostname ddns -dit --env-file -v /mnt/docker_vol/ddns/conf:/conf ./.env dns-updater
 ```
-
+ 
 # JSON
 To proceed with the setup, create a file named domains.json using the following structure, and place it in the same folder as your main.go and Dockerfile. Pay close attention to these crucial fields:
 * domain: the domain needs to exist and owned by the api key and secret
