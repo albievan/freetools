@@ -1,6 +1,11 @@
 # Free Golang Utilities
 
-This repository contains source code for five useful tools developed in Golang: 1) Simple HTTP Server, 2) Dynamic DNS Updater for GoDaddy, 3) Mouse Wiggler Tool, 4) Folder Monitor Utility, and 5) Version Tool.
+This repository contains source code for five useful tools developed in Golang:
+* Simple HTTP Server,
+* Dynamic DNS Updater for GoDaddy,
+* Mouse Wiggler Tool,
+* Folder Monitor Utility, and
+* Version Tool.
 
 Each of these tools is designed to simplify common tasks and enhance your productivity. The code is open-source and free to use or modify. However, as the creator of these tools, I provide no warranties and cannot guarantee the code's behavior in your particular environment. Please use them at your own risk.
 
