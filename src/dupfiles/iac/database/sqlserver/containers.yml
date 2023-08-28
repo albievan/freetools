@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+
+  mssql.db:
+    image: ${SQL_IMAGE}
+    hostname: mssql.db
+    container_name: mssql.db
+    restart: unless-stopped
+    user: 0:0
+    stdin_open: true
+    tty: true
+    cap_add:
+      - SYS_PTRACE
+    ports:
+      - ${SQL_PORT}:1433
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=${SA_PASSWORD}
+      - MSSQL_PID=${MSSQL_PID}
+      - MSSQL_USER=sa
+      - TZ=Europe/London
+    volumes:
+      - ${BASE_PATH}/mssql/var/opt/mssql/data:/var/opt/mssql/data
+      - ${BASE_PATH}/mssql/var/opt/mssql/log:/var/opt/mssql/log
+      - ${BASE_PATH}/mssql/var/opt/mssql/secrets:/var/opt/mssql/secrets
+      - ${BASE_PATH}/mssql/sql-scripts:/sql-scripts
+      - ${BASE_PATH}/mssql/databases/:/databases
+      - ${BASE_PATH}/mssql/databases/logs:/databases/logs
+
+  portainer:
+    hostname: portainer
+    container_name: portainer
+    image: portainer/portainer:latest
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ${BASE_PATH}/portainer/data:/data
+    ports:
+      - ${PORTAINER_PORT}:9000
+
+  watchtower:
+    image: containrrr/watchtower:latest
+    container_name: watchtower
+    hostname: watchtower
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    restart: unless-stopped
